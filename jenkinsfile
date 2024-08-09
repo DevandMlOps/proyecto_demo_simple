@@ -21,12 +21,20 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('sonarqube') {
-                    sh 'mvn sonar:sonar'
-                }
-            }
-        }
+	    steps {
+		withSonarQubeEnv('sonarqube') {
+		    sh '''
+		        mvn sonar:sonar \
+		          -Dsonar.projectKey=demo-proyect \
+		          -Dsonar.projectName='demo-proyect' \
+		          -Dsonar.projectVersion=1.0 \
+		          -Dsonar.sources=src/main/java/ \
+		          -Dsonar.java.binaries=target/classes \
+		          -Dsonar.host.url=http://sonarqube:9000
+		    '''
+		}
+	    }
+	}
 
         stage('Quality Gate') {
             steps {

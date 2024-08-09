@@ -3,10 +3,10 @@ pipeline {
 
     stages {
         stage('Checkout') {
-            steps {
-                git 'https://github.com/ML-operations/proyecto_demo_simple.git'
-            }
-        }
+	    steps {
+		git branch: 'main', url: 'https://github.com/ML-operations/proyecto_demo_simple.git'
+	    }
+	}
 
         stage('Build') {
             steps {
